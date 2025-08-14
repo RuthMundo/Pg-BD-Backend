@@ -30,32 +30,44 @@ public class UsuarioService {
 	}
 	
 	@PostMapping( path = "/guardar")
-	public Usuario saveUsuario(@RequestBody Usuario usuario ) {
-		return usuarioRepository.save(usuario);
+	public String saveUsuario(@RequestBody Usuario usuario ) {
+		String resultado = "";
+		boolean existe = usuarioExiste(usuario.getCorreoElectronico());
+		
+		if (existe) {
+			resultado = "El correo ingresado ya existe en el sistema, intente con otro correo electrónico";
+		} else {
+			usuario.setPassword(Encriptado.encriptar(usuario.getPassword()));
+			usuarioRepository.save(usuario);
+			resultado = "El ususario fue creado exitosamente";
+		}
+
+		return resultado;
     }
 	
 	@DeleteMapping( path ="/eliminar/{idusuario}")
 	public void deletUsuario(@PathVariable ("idusuario") Integer idusuario) {
 		
-	
 	Optional<Usuario> usuario;
 	usuario = usuarioRepository.findById(idusuario);
 	if(usuario.isPresent()) {
 		usuarioRepository.delete(usuario.get());
-	}
+		}
 	}
 	
-	@GetMapping(path = "/login/{correoElectronico}/{password}")
-	public String login(@PathVariable("correoElectronico") String correoElectronico, @PathVariable("password") String password) {
-		String login ="ERROR";
-		List <Usuario> usuario = usuarioRepository.findByCorreoElectronicoAndPassword(correoElectronico, password);
-		
-		if(!usuario.isEmpty()) {
-			login = "OK";
+	
+	public boolean usuarioExiste(String correoElectronico) {
+		boolean existe = true;
+		List <Usuario> usuarioEncontrado = usuarioRepository.findByCorreoElectronico(correoElectronico);
+		if(usuarioEncontrado.isEmpty()) {
+			existe = false;
 		}
 		
-		return login ;
-		
+		System.out.println(existe);
+		return existe;
 	}
-
+	
+	
+	
+	
 }

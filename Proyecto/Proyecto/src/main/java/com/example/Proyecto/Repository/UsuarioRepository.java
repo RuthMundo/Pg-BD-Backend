@@ -12,6 +12,7 @@ import com.example.Proyecto.Entity.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Serializable> {
 	
 	public List<Usuario> findByCorreoElectronicoAndPassword(String correoElectronico, String password);
+	public List<Usuario> findByCorreoElectronico(String correoElectronico);
 	
 
 }
