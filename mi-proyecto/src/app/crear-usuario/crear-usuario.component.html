@@ -1,0 +1,56 @@
+<div class="container">
+  <h2>Crear Usuario</h2>
+
+  <!-- Mensaje de información -->
+  <div *ngIf="message" class="alert">{{ message }}</div>
+
+  <form [formGroup]="crearUsuarioForm" (ngSubmit)="crearUsuario()">
+
+    <!-- Nombre -->
+    <div class="form-group">
+      <label>Nombre</label>
+      <input type="text" formControlName="nombreCompleto" placeholder="Nombre completo">
+      <div class="error" *ngIf="crearUsuarioForm.get('nombreCompleto')?.invalid && crearUsuarioForm.get('nombreCompleto')?.touched">
+        ❌ El nombre es obligatorio
+      </div>
+    </div>
+
+    <!-- Correo -->
+    <div class="form-group">
+      <label>Correo Electrónico</label>
+      <input type="email" formControlName="correoElectronico" placeholder="correo@ejemplo.com">
+      <div class="error" *ngIf="crearUsuarioForm.get('correoElectronico')?.errors?.['required'] && crearUsuarioForm.get('correoElectronico')?.touched">
+        ❌ El correo es obligatorio
+      </div>
+      <div class="error" *ngIf="crearUsuarioForm.get('correoElectronico')?.errors?.['email'] && crearUsuarioForm.get('correoElectronico')?.touched">
+        ❌ Ingresa un correo válido
+      </div>
+    </div>
+
+    <!-- Password -->
+    <div class="form-group">
+      <label>Contraseña</label>
+      <input type="password" formControlName="password" placeholder="Contraseña">
+      <div class="error" *ngIf="crearUsuarioForm.get('password')?.errors?.['required'] && crearUsuarioForm.get('password')?.touched">
+        ❌ La contraseña es obligatoria
+      </div>
+      <div class="error" *ngIf="crearUsuarioForm.get('password')?.errors?.['minlength'] && crearUsuarioForm.get('password')?.touched">
+        ❌ Mínimo 6 caracteres
+      </div>
+    </div>
+
+    <!-- Rol -->
+    <div class="form-group">
+      <label>Rol</label>
+      <input type="text" formControlName="rolIdrol" placeholder="Rol">
+      <div class="error" *ngIf="crearUsuarioForm.get('rolIdrol')?.invalid && crearUsuarioForm.get('rolIdrol')?.touched">
+        ❌ El rol es obligatorio
+      </div>
+    </div>
+
+    <!-- Botón enviar -->
+    <button type="submit" [disabled]="loading">
+      {{ loading ? 'Creando...' : 'Crear Usuario' }}
+    </button>
+  </form>
+</div>
