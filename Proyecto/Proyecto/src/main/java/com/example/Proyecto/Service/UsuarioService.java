@@ -27,6 +27,8 @@ public class UsuarioService {
 	
 	@Autowired
 	UsuarioRepository usuarioRepository;
+	@Autowired
+	private NotificacionContrasenia notificacionContrasenia;
 	
 	@GetMapping( path = "/buscar")
 	public List<Usuario> getAllUsuario() {
@@ -52,11 +54,6 @@ public class UsuarioService {
 	@PostMapping(path = "/guardar")
 	public ResponseEntity<Map<String, Object>> saveUsuario(@RequestBody Usuario usuario) {
 	    Map<String, Object> response = new HashMap<>();
-	    
-	    System.out.println(usuario.getCorreoElectronico());
-	    System.out.println(usuario.getNombreCompleto());
-	    System.out.println(usuario.getPassword());
-	    System.out.println(usuario.getRolIdrol());
 
 	    boolean existe = usuarioExiste(usuario.getCorreoElectronico());
 
@@ -65,11 +62,15 @@ public class UsuarioService {
 	        response.put("message", "El correo ingresado ya existe en el sistema, intente con otro correo electrónico2");
 	        return ResponseEntity.status(HttpStatus.CONFLICT).body(response); // 409
 	    } else {
-	        usuario.setPassword(Encriptado.encriptar(usuario.getPassword()));
+	    	String contraseniaMail = GeneradorContrasenia.contrasenia();
+	    	System.out.println("");
+	    	System.out.println("es la contraseña aleatoria"+contraseniaMail);
+	        usuario.setPassword(Encriptado.encriptar(contraseniaMail));
 	        usuarioRepository.save(usuario);
 
 	        response.put("success", true);
 	        response.put("message", "El usuario fue creado exitosamente");
+	        notificacionContrasenia.enviarCorreo(usuario.getCorreoElectronico(), "Contraseña temporal", contraseniaMail);
 	        return ResponseEntity.status(HttpStatus.CREATED).body(response); // 201
 	    }
 	}
@@ -93,7 +94,7 @@ public class UsuarioService {
 		List <Usuario> usuarioEncontrado = usuarioRepository.findByCorreoElectronico(correoElectronico);
 		if(usuarioEncontrado.isEmpty()) {
 			existe = false;
-		}
+		} 
 		System.out.print("llegue aca" + existe);
 		return existe;
 	}

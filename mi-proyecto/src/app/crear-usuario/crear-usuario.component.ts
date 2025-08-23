@@ -22,7 +22,6 @@ export class CrearUsuarioComponent {
       //idusuario: ['', Validators.required],
       nombreCompleto: ['', Validators.required],
       correoElectronico: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
       rolIdrol: ['', Validators.required]
     });
   }

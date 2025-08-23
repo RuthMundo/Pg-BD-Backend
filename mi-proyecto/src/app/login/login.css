@@ -1,0 +1,105 @@
+/* Fondo general */
+body {
+  background: linear-gradient(135deg, #74ebd5 0%, #9face6 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Contenedor principal */
+.container {
+  max-width: 420px;
+  margin: 80px auto;
+  background: #fff;
+  padding: 35px 30px;
+  border-radius: 15px;
+  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Título */
+.container h1 {
+  text-align: center;
+  font-size: 26px;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* Separador */
+.container hr {
+  border: none;
+  height: 2px;
+  background: #9face6;
+  margin: 10px 0 20px;
+}
+
+/* Inputs */
+.form-control {
+  border-radius: 10px;
+  padding: 12px 15px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #74ebd5;
+  box-shadow: 0 0 8px rgba(116, 235, 213, 0.6);
+  outline: none;
+}
+
+/* Mensajes de error */
+.text-danger {
+  font-size: 13px;
+  margin-top: 5px;
+  display: block;
+}
+
+/* Botón */
+.btn-success {
+  background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+  background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
+  transform: scale(1.05);
+}
+
+/* Spinner */
+.spinner-border {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+/* Registro */
+label {
+  font-size: 14px;
+  color: #555;
+}
+
+label a {
+  color: #007bff;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+label a:hover {
+  text-decoration: underline;
+}
+
+/* Animación */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

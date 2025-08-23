@@ -27,17 +27,7 @@
       </div>
     </div>
 
-    <!-- Password -->
-    <div class="form-group">
-      <label>Contraseña</label>
-      <input type="password" formControlName="password" placeholder="Contraseña">
-      <div class="error" *ngIf="crearUsuarioForm.get('password')?.errors?.['required'] && crearUsuarioForm.get('password')?.touched">
-        ❌ La contraseña es obligatoria
-      </div>
-      <div class="error" *ngIf="crearUsuarioForm.get('password')?.errors?.['minlength'] && crearUsuarioForm.get('password')?.touched">
-        ❌ Mínimo 6 caracteres
-      </div>
-    </div>
+
 
     <!-- Rol -->
     <div class="form-group">
