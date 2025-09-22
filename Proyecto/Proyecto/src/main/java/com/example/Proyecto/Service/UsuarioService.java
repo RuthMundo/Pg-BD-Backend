@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.Proyecto.Entity.Usuario;
+import com.example.Proyecto.Entity.UsuarioRol;
+import com.example.Proyecto.Entity.UsuarioRolId;
 import com.example.Proyecto.Repository.UsuarioRepository;
+import com.example.Proyecto.Repository.UsuarioRolRepository;
 
 @RestController
 @RequestMapping("/usuario")
@@ -29,27 +32,17 @@ public class UsuarioService {
 	UsuarioRepository usuarioRepository;
 	@Autowired
 	private NotificacionContrasenia notificacionContrasenia;
+	@Autowired
+	UsuarioRolRepository usuarioRolRepository;
+	@Autowired
+	UsuarioMenu usuarioMenu;
+	
 	
 	@GetMapping( path = "/buscar")
 	public List<Usuario> getAllUsuario() {
 		return usuarioRepository.findAll();
 	}
-	
-	/*@PostMapping( path = "/guardar")
-	public String saveUsuario(@RequestBody Usuario usuario ) {
-		String resultado = "";
-		boolean existe = usuarioExiste(usuario.getCorreoElectronico());
-		
-		if (existe) {
-			resultado = "El correo ingresado ya existe en el sistema, intente con otro correo electrónico";
-		} else {
-			usuario.setPassword(Encriptado.encriptar(usuario.getPassword()));
-			usuarioRepository.save(usuario);
-			resultado = "El ususario fue creado exitosamente";
-		}
 
-		return resultado;
-    }*/
 	
 	@PostMapping(path = "/guardar")
 	public ResponseEntity<Map<String, Object>> saveUsuario(@RequestBody Usuario usuario) {
@@ -94,12 +87,27 @@ public class UsuarioService {
 		List <Usuario> usuarioEncontrado = usuarioRepository.findByCorreoElectronico(correoElectronico);
 		if(usuarioEncontrado.isEmpty()) {
 			existe = false;
-		} 
-		System.out.print("llegue aca" + existe);
+		}
 		return existe;
 	}
 	
 	
+	@GetMapping( path = "/buscarRoles/{idusuario}")
+	public List<UsuarioRol> getRol(@PathVariable ("idusuario") Integer idUsuario) {
+		List <UsuarioRol> roles = usuarioRolRepository.findByIdIdUsuario(idUsuario);
+		return roles;
+	}
 	
+	
+	
+	@GetMapping(path = "/buscarMenu")
+	public ResponseEntity<UsuarioRol> getRol(@RequestBody UsuarioRolId idUsuarioRol) {
+
+		 Map<String, Object> respuesta = usuarioMenu.getMensaje(idUsuarioRol);
+
+	    return usuarioRolRepository.findById(idUsuarioRol)
+	            .map(ResponseEntity::ok)
+	            .orElse(ResponseEntity.notFound().build());
+	}
 	
 }

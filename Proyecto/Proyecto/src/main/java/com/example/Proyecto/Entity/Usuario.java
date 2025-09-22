@@ -31,18 +31,7 @@ public class Usuario implements Serializable{
 	
 	@Column(name="correo_electronico")
 	private String correoElectronico;
-	
-	@Column(name="rol_idrol")
-	private String rolIdrol;
-	
 
-	public String getRolIdrol() {
-		return rolIdrol;
-	}
-
-	public void setRolIdrol(String rolIdrol) {
-		this.rolIdrol = rolIdrol;
-	}
 
 	public Integer getIdusuario() {
 		return idusuario;

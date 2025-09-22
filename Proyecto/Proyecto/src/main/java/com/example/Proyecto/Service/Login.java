@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.Proyecto.Entity.Usuario;
+import com.example.Proyecto.Entity.UsuarioRol;
 import com.example.Proyecto.Repository.UsuarioRepository;
+import com.example.Proyecto.Repository.UsuarioRolRepository;
 
 @RestController
 @RequestMapping("/login")
@@ -24,40 +26,8 @@ import com.example.Proyecto.Repository.UsuarioRepository;
 public class Login {
 	@Autowired
 	UsuarioRepository usuarioRepository;
-
-/*	@PostMapping(path = "/loguearse")
-	public String login(@RequestBody Usuario usuario) {
-		System.out.print(usuario.getCorreoElectronico()+usuario.getPassword());
-		
-		String respuesta = "Login Exitoso";
-		usuario.setPassword(Encriptado.encriptar(usuario.getPassword()));
-		List <Usuario> usuarioEncontrado = usuarioRepository.findByCorreoElectronicoAndPassword(usuario.getCorreoElectronico(), usuario.getPassword());
-		if (usuarioEncontrado.isEmpty()) {
-			respuesta = "Usuario o contraseña son inválidos";
-		}
-
-		return respuesta;
-	}*/
-	/*
-	
-	
-	@PostMapping(path = "/loguearse")
-	public ResponseEntity<Map<String, Object>> login(@RequestBody Usuario usuario) {
-	    Map<String, Object> respuesta = new HashMap<>();
-	    usuario.setPassword(Encriptado.encriptar(usuario.getPassword()));
-	    List<Usuario> usuarioEncontrado = usuarioRepository.findByCorreoElectronicoAndPassword(
-	        usuario.getCorreoElectronico(), usuario.getPassword()
-	    );
-
-	    if (usuarioEncontrado.isEmpty()) {
-	        respuesta.put("message", "Usuario o contraseña inválidos");
-	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(respuesta); // 401
-	    }
-
-	    respuesta.put("message", "Login exitoso");
-	    respuesta.put("usuario", usuarioEncontrado.get(0));
-	    return ResponseEntity.ok(respuesta); // 200
-	}*/
+	@Autowired 
+	UsuarioRolRepository usuarioRolRepository;
 	
 	@PostMapping(path = "/loguearse")
 	public ResponseEntity<Map<String, Object>> login(@RequestBody Usuario usuario) {
@@ -80,7 +50,17 @@ public class Login {
         if (usuarioEncontrado.isEmpty()) {
             respuesta.put("message", "Usuario o contraseña inválidos");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(respuesta); // 401
+        }else {
+        	List<UsuarioRol> rolEncontrado = usuarioRolRepository.findByIdIdUsuario(usuarioEncontrado.get(0).getIdusuario());
+        	
+        	   if (rolEncontrado.isEmpty()) {
+                   respuesta.put("message", "No tienes un perfil o rol definido");
+                   return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(respuesta); // 401
+               }else {
+        	respuesta.put("idRol", rolEncontrado.get(0).getId().getIdRol());
+               }
         }
+        
 
         // usuario sin permisos
       /*  if (!usuarioEncontrado.get(0).getRolIdrol().equals("ADMIN")) {

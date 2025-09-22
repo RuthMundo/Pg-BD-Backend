@@ -16,35 +16,31 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.Proyecto.Entity.Modulo;
 import com.example.Proyecto.Repository.ModuloRepository;
 
-
-
 @RestController
 @RequestMapping("/modulo")
 @CrossOrigin
 public class ModuloService {
 
-	
 	@Autowired
 	ModuloRepository moduloRepository;
-	
-	@GetMapping( path = "/buscar")
+
+	@GetMapping(path = "/buscar")
 	public List<Modulo> getAllModulo() {
 		return moduloRepository.findAll();
 	}
-	
-	@PostMapping( path = "/guardar")
-	public Modulo saveModulo(@RequestBody Modulo modulo ) {
+
+	@PostMapping(path = "/guardar")
+	public Modulo saveModulo(@RequestBody Modulo modulo) {
 		return moduloRepository.save(modulo);
-    }
-	
-	@DeleteMapping( path ="/eliminar/{idmodulo}")
-	public void deletModulo(@PathVariable ("idmodulo") Integer idmodulo) {
-		
-	
-	Optional<Modulo> modulo;
-	modulo = moduloRepository.findById(idmodulo);
-	if(modulo.isPresent()) {
-		moduloRepository.delete(modulo.get());
 	}
+
+	@DeleteMapping(path = "/eliminar/{idmodulo}")
+	public void deletModulo(@PathVariable("idmodulo") Integer idmodulo) {
+
+		Optional<Modulo> modulo;
+		modulo = moduloRepository.findById(idmodulo);
+		if (modulo.isPresent()) {
+			moduloRepository.delete(modulo.get());
+		}
 	}
 }

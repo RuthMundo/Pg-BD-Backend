@@ -1,0 +1,165 @@
+/* --- Estilos generales --- */
+.header {
+  background-color: #2e7d32; /* verde oscuro */
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between; /* Logo izquierda, menú centro, hamburguesa derecha */
+  align-items: center;
+  padding: 12px 20px;
+  position: relative;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  flex: 0 0 auto; /* no crecer ni encoger */
+}
+
+/* --- Menú desktop --- */
+.nav-desktop {
+  display: flex;
+  justify-content: center;
+  flex: 1; /* ocupa el espacio restante */
+  gap: 1rem;
+}
+
+.modulo {
+  position: relative;
+}
+
+.btn-modulo {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 1rem;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.btn-modulo:hover {
+  background-color: #1b5e20;
+  border-radius: 6px;
+}
+
+/* Submenú */
+.submenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  color: #2c3e50;
+  min-width: 160px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  z-index: 100;
+}
+
+.modulo:hover .submenu {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Menú dentro del submenú */
+.menu {
+  padding: 8px 12px;
+  position: relative;
+}
+
+.menu:hover {
+  background-color: #f1f8e9;
+}
+
+.menu-titulo {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.submenu-opciones {
+  margin-left: 10px;
+}
+
+.opcion {
+  padding: 4px 0;
+  cursor: pointer;
+}
+
+.opcion:hover {
+  text-decoration: underline;
+}
+
+/* --- Menú móvil --- */
+.hamburguesa {
+  display: none;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+
+.nav-movil {
+  display: none;
+  flex-direction: column;
+  background: #1b5e20;
+  padding: 10px 20px;
+}
+
+.nav-movil.activo {
+  display: flex;
+}
+
+.modulo-movil {
+  margin-top: 10px;
+}
+
+.modulo-nombre {
+  font-weight: bold;
+  padding: 6px 0;
+}
+
+.menu-movil {
+  padding-left: 15px;
+}
+
+.menu-nombre {
+  font-weight: 600;
+  padding: 4px 0;
+}
+
+.opcion-movil {
+  padding-left: 15px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.opcion-movil:hover {
+  text-decoration: underline;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .nav-desktop {
+    display: none;
+  }
+
+  .hamburguesa {
+    display: block;
+  }
+}

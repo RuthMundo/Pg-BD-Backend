@@ -5,10 +5,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.example.Proyecto.Entity.Rol;
 
-@Repository("rolRepository")
-public interface RolRepository extends JpaRepository<Rol, Serializable> {
+import com.example.Proyecto.Entity.Opcion;
 
-	public List<Rol> findByIdrol(Integer idRol);
+@Repository("opcionRepository")
+public interface OpcionRepository extends JpaRepository<Opcion, Serializable> {
+
+	public List<Opcion> findByIdOpcion(Integer idOpcion);
 }

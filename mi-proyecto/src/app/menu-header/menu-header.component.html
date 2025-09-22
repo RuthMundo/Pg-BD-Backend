@@ -1,0 +1,52 @@
+<header class="header">
+  <div class="header-container">
+    <!-- Logo + Título -->
+    <div class="logo">
+      🌱 <span>Las Vertientes S. A. </span>
+    </div>
+
+    <!-- Menú Desktop -->
+    <nav class="nav-desktop">
+      <div *ngFor="let modulo of modulos" class="modulo">
+        <button class="btn-modulo">{{ modulo.nombreModulo }}</button>
+
+        <!-- Menús -->
+        <div class="submenu">
+          <div *ngFor="let menu of modulo.listMenu" class="menu">
+            <div class="menu-titulo">{{ menu.nombreMenu }}</div>
+
+            <!-- Opciones -->
+            <div class="submenu-opciones">
+              <div *ngFor="let opcion of menu.listOpcion"
+                   class="opcion"
+                   (click)="irA(opcion.url)">
+                {{ opcion.nombreOpcion }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Botón Hamburguesa -->
+    <button class="hamburguesa" (click)="toggleMenu()">☰</button>
+  </div>
+
+  <!-- Navegación móvil -->
+  <nav class="nav-movil" [class.activo]="menuVisible">
+    <div *ngFor="let modulo of modulos" class="modulo-movil">
+      <div class="modulo-nombre">{{ modulo.nombreModulo }}</div>
+      <div *ngFor="let menu of modulo.listMenu" class="menu-movil">
+        <div class="menu-nombre">{{ menu.nombreMenu }}</div>
+        <div *ngFor="let opcion of menu.listOpcion"
+             class="opcion-movil"
+             (click)="irA(opcion.url)">
+          - {{ opcion.nombreOpcion }}
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- Espaciador para header fijo -->
+<div style="padding-top: 80px;"></div>

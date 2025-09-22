@@ -1,6 +1,7 @@
 package com.example.Proyecto.Entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -8,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,6 +26,12 @@ public class Modulo implements Serializable{
 	
 	@Column(name="nombre_modulo")
 	private String nombreModulo;
+	
+	@Column(name="orden_modulo")
+	private String orden;
+	
+	@OneToMany(mappedBy = "idModulo")
+	private List<Menu> listMenu;
 
 	public Integer getIdmodulo() {
 		return idmodulo;
@@ -40,6 +48,23 @@ public class Modulo implements Serializable{
 	public void setNombreModulo(String nombreModulo) {
 		this.nombreModulo = nombreModulo;
 	}
+
+	public String getOrden() {
+		return orden;
+	}
+
+	public void setOrden(String orden) {
+		this.orden = orden;
+	}
+
+	public List<Menu> getListMenu() {
+		return listMenu;
+	}
+
+	public void setListMenu(List<Menu> listMenu) {
+		this.listMenu = listMenu;
+	}
+
 
 	
 }

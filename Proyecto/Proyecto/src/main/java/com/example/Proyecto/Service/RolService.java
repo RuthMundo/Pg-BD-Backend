@@ -22,28 +22,26 @@ import com.example.Proyecto.Repository.RolRepository;
 
 public class RolService {
 
-	
 	@Autowired
 	RolRepository rolRepository;
-	
-	@GetMapping( path = "/buscar")
+
+	@GetMapping(path = "/buscar")
 	public List<Rol> getAllRol() {
 		return rolRepository.findAll();
 	}
-	
-	@PostMapping( path = "/guardar")
-	public Rol saveRol(@RequestBody Rol rol ) {
+
+	@PostMapping(path = "/guardar")
+	public Rol saveRol(@RequestBody Rol rol) {
 		return rolRepository.save(rol);
-    }
-	
-	@DeleteMapping( path ="/eliminar/{idrol}")
-	public void deletRol(@PathVariable ("idrol") Integer idrol) {
-		
-	
-	Optional<Rol> rol;
-	rol = rolRepository.findById(idrol);
-	if(rol.isPresent()) {
-		rolRepository.delete(rol.get());
 	}
+
+	@DeleteMapping(path = "/eliminar/{idrol}")
+	public void deletRol(@PathVariable("idrol") Integer idrol) {
+
+		Optional<Rol> rol;
+		rol = rolRepository.findById(idrol);
+		if (rol.isPresent()) {
+			rolRepository.delete(rol.get());
+		}
 	}
-	}
+}
