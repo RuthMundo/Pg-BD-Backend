@@ -24,7 +24,6 @@ export class Login {
   message: string = '';
 
   constructor(private fb: FormBuilder, private http: HttpClient, private loginServiceC: LoginService, private router: Router) {
-    // Inicializamos el formulario en el constructor (más seguro)
     this.loginForm = this.fb.group({
       correoElectronico: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -60,7 +59,7 @@ export class Login {
 
 
         if (respuesta.usuario) {
-          // 👇 aquí deberías usar Router, no location.href
+          localStorage.setItem('usuario', JSON.stringify(respuesta));
           this.router.navigate(['/home']);
         }
       },

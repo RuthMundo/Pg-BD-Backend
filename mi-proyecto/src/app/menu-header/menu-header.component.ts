@@ -15,6 +15,11 @@ import { UsuarioMenuService } from '../services/usuario-menu.service';
 export class MenuHeaderComponent {
  modulos: Modulo[] = [];
   menuVisible = false;
+  miVariable: any[] = [];
+  id: number = 0;
+
+    temporal:any ={};
+  public usuarioMomentaneo:any = {};
 
   constructor(
     private router: Router,
@@ -22,9 +27,23 @@ export class MenuHeaderComponent {
   ) {}
 
   ngOnInit(): void {
-    // Cargar módulos para un rol específico (ejemplo idRol = 1)
-    this.cargarModulos(1);
+
+  if (typeof window !== 'undefined' && window.localStorage) {
+    this.temporal = JSON.parse(window.localStorage.getItem("usuario") || '{}');
+     this.id = this.temporal.idRol;
+           this.cargarModulos(this.id);
   }
+
+
+
+}
+
+ 
+
+
+
+
+  
 
   // Toggle del menú hamburguesa en móvil
   toggleMenu(): void {

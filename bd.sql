@@ -1,3 +1,5 @@
+drop database basedatos;
+
 -- MySQL Workbench Forward Engineering
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
@@ -326,7 +328,7 @@ ENGINE = InnoDB;
 -- Table `BASEDATOS`.`modulo`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `BASEDATOS`.`modulo` (
-  `idmodulo` INT NOT NULL,
+  `idmodulo` INT NOT NULL AUTO_INCREMENT,
   `nombre_modulo` VARCHAR(45) NOT NULL,
   `orden_modulo` INT NOT NULL,
   PRIMARY KEY (`idmodulo`))
@@ -643,3 +645,36 @@ COLLATE = utf8mb4_0900_ai_ci;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+
+
+
+
+
+insert into basedatos.modulo (nombre_modulo, orden_modulo) values ('Seguridad',1);
+insert into basedatos.modulo (nombre_modulo, orden_modulo) values ('Cambio',2);
+
+insert into basedatos.menu (nombre_menu, orden_menu, modulo_idmodulo) values ('Ususario', 1,1);
+insert into basedatos.menu (nombre_menu, orden_menu, modulo_idmodulo) values ('Menu', 2,1);
+
+insert into basedatos.opcion (nombre_opcion, orden_opcion, menu_idmenu, url) values ('Crear usuario',1,1, 'crear-usuario');
+insert into basedatos.opcion (nombre_opcion, orden_opcion, menu_idmenu, url) values ('Administración de usuarios',2,1, 'admin-user');
+insert into basedatos.opcion (nombre_opcion, orden_opcion, menu_idmenu, url) values ('Administración de menus',2,2, 'admin-menu');
+
+
+insert into basedatos.rol (nombre_rol) values ('ADMINISTRADOR');
+insert into basedatos.rol (nombre_rol) values ('SECRETARIA');
+
+INSERT INTO BASEDATOS.ROL_OPCION (rol_idrol,opcion_idopcion, crear, consultar, eliminar, editar, imprimir, exportar) values (1,1,1,1,1,1,1,1);
+INSERT INTO BASEDATOS.ROL_OPCION (rol_idrol,opcion_idopcion, crear, consultar, eliminar, editar, imprimir, exportar) values (1,2,1,1,1,1,1,1);
+INSERT INTO BASEDATOS.ROL_OPCION (rol_idrol,opcion_idopcion, crear, consultar, eliminar, editar, imprimir, exportar) values (1,3,1,1,1,1,1,1);
+
+
+insert into basedatos.usuario (nombre_completo, password, correo_electronico) values('Aemy Mundo', '07eda44f73600d30416327cf93d952d1','rmundo@gmail.com'); -- pasword ==     T69Wx&w4)Lc+7Uf
+insert into basedatos.usuario_rol(usuario_idusuario,rol_idrol) values (1,1);
+
+
+
+use basedatos;
+select * from usuario;
